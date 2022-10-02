@@ -240,6 +240,8 @@
                                 Builders<T>.Filter.Lte(key, new BsonDouble(dbRange.Maximum.Value)));
                 case NotNull _:
                     return Builders<T>.Filter.Not(Builders<T>.Filter.Type(key, BsonType.Null));
+                case string s:
+                    return Builders<T>.Filter.Eq(key, BsonValue.Create(value));
                 case IEnumerable t:
                 {
                     if (t is JArray)

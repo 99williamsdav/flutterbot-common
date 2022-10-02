@@ -17,13 +17,30 @@ namespace BetfairApi.Models
         [JsonProperty(PropertyName = "persistenceType")]
         public PersistenceType PersistenceType { get; set; }
 
+        [JsonProperty(PropertyName = "timeInForce", NullValueHandling = NullValueHandling.Ignore)]
+        public TimeInForce? TimeInForce { get; set; }
+        
+        [JsonProperty(PropertyName = "minFillSize", NullValueHandling = NullValueHandling.Ignore)]
+        public decimal? MinFillSize { get; set; }
+
         public override string ToString()
         {
-            return new StringBuilder()
+            var sb = new StringBuilder()
                         .AppendFormat("Size={0}", Size)
                         .AppendFormat(" : Price={0}", Price)
-                        .AppendFormat(" : PersistenceType={0}", PersistenceType)
-                        .ToString();
+                        .AppendFormat(" : PersistenceType={0}", PersistenceType);
+            if (TimeInForce != null)
+            {
+                sb.AppendFormat(" : TimeInForce={0}", TimeInForce)
+                    .AppendFormat(" : MinFillSize={0}", MinFillSize);
+            }
+
+            return sb.ToString();
         }
+    }
+    
+    public enum TimeInForce
+    {
+        FILL_OR_KILL
     }
 }

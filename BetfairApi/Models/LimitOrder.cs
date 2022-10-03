@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace BetfairApi.Models
 {
@@ -21,7 +22,7 @@ namespace BetfairApi.Models
         public TimeInForce? TimeInForce { get; set; }
         
         [JsonProperty(PropertyName = "minFillSize", NullValueHandling = NullValueHandling.Ignore)]
-        public decimal? MinFillSize { get; set; }
+        public double? MinFillSize { get; set; }
 
         public override string ToString()
         {
@@ -39,6 +40,7 @@ namespace BetfairApi.Models
         }
     }
     
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum TimeInForce
     {
         FILL_OR_KILL

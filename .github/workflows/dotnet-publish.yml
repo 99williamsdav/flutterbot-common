@@ -18,8 +18,8 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build Flutterbot.Common --configuration Release --no-restore
+      run: dotnet build Flutterbot.Common.csproj --configuration Release --no-restore
     - name: Pack package
-      run: dotnet pack Flutterbot.Common --configuration Release --no-build --include-symbols -o $(System.DefaultWorkingDirectory)/nuget
+      run: dotnet pack Flutterbot.Common.csproj --configuration Release --no-build --include-symbols -o $(System.DefaultWorkingDirectory)/nuget
     - name: Publish NuGet package to GitHub
       run: dotnet nuget push $(System.DefaultWorkingDirectory)/nuget/*.nupkg  --api-key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/99williamsdav/index.json"

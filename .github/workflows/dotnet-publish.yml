@@ -3,7 +3,7 @@ name: Publish Flutterbot Common NuGet Package
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build_and_publish:

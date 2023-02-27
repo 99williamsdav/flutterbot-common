@@ -19,12 +19,7 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore
-    - name: Publish NuGet package
+    - name: Pack package
       run: dotnet pack --configuration Release --no-build --include-symbols -o $(System.DefaultWorkingDirectory)/nuget
-
-    - name: Publish package to GitHub Packages
-      uses: nuget/publish@v1
-      with:
-        nugetApiKey: ${{ secrets.GITHUB_TOKEN }}
-        nugetSource: https://nuget.pkg.github.com/99williamsdav/index.json
-        packagePath: $(System.DefaultWorkingDirectory)/nuget/*.nupkg
+    - name: Publish NuGet package to GitHub
+      run: dotnet nuget push $(System.DefaultWorkingDirectory)/nuget/*.nupkg  --api-key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/99williamsdav/index.json"

@@ -1,0 +1,30 @@
+name: Publish Flutterbot Common NuGet Package
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    - name: Publish NuGet package
+      run: dotnet pack --configuration Release --no-build --include-symbols -o $(System.DefaultWorkingDirectory)/nuget
+
+    - name: Publish package to GitHub Packages
+      uses: nuget/publish@v1
+      with:
+        nugetApiKey: ${{ secrets.GITHUB_TOKEN }}
+        nugetSource: https://nuget.pkg.github.com/99williamsdav/index.json
+        packagePath: $(System.DefaultWorkingDirectory)/nuget/*.nupkg

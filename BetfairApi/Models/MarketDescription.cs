@@ -50,6 +50,10 @@ namespace BetfairApi.Models
         [JsonProperty(PropertyName = "rulesHasDate")]
         public bool RulesHasDate { get; set; }
 
+        [JsonProperty(PropertyName = "eachWayDivisor")]
+        public string EachWayDivisor { get; set; }
+        
+
         [JsonProperty(PropertyName = "clarifications")]
         public string Clarifications { get; set; }
 

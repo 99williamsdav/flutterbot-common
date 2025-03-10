@@ -68,5 +68,13 @@ namespace Common.Utils
         {
             return EncodeBase36(Convert.ToInt64(value));
         }
+
+        public static string ToPrettyString(this TimeSpan value)
+        {
+            return value.Hours > 0 ? $"{value.TotalHours:N0}h {value.Minutes}m {value.Seconds}s"
+                : value.Minutes > 0 ? $"{value.TotalMilliseconds:N0}m {value.Seconds}s"
+                : value.Seconds > 0 ? $"{value.TotalSeconds:N3}s"
+                : $"{value.TotalMilliseconds:N0}ms";
+        }
     }
 }
